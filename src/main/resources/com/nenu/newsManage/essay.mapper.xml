@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nenu.newsManage.mapper.EssayMapper">
+    <resultMap id="essayResultMap" type="Essay">
+        <id property="essayId" column="essay_id"/>
+        <id property="essayName" column="essay_name"/>
+        <id property="essayContent" column="essay_content"/>
+        <id property="columnId" column="column_id"/>
+        <!--另一张表的左连接字段-->
+        <id property="columnName" column="columns_name"/>
+        <id property="essayState" column="essay_state"/>
+    </resultMap>
+
+    <insert id="newEssay">
+        INSERT INTO t_essay(essay_name, essay_content, column_id, essay_state)
+        VALUES (#{essay.essayName}, #{essay.essayContent}, #{essay.columnId}, #{essay.essayState})
+    </insert>
+
+    <update id="delEssay">
+        UPDATE t_essay
+        SET essay_state = 0
+        WHERE essay_id = #{essayId}
+    </update>
+
+    <update id="delEssayByColumnId">
+        UPDATE t_essay
+        SET essay_state = 0
+        WHERE column_id = #{columnId}
+    </update>
+
+    <update id="updateEssay">
+        UPDATE t_essay
+        SET essay_name = #{essay.essayName}, essay_content = #{essay.essayContent}, column_id = #{essay.columnId}, essay_state = #{essay.essayState}
+        WHERE essay_id = #{essay.essayId}
+    </update>
+
+    <select id="listEssay" resultMap="essayResultMap">
+        SELECT *
+        FROM t_essay
+        LEFT JOIN t_column
+        ON t_essay.column_id = t_column.column_id
+        WHERE t_essay.essay_state = 1
+		ORDER BY t_essay.column_id ASC
+    </select>
+
+    <select id="listEssayByPage" resultMap="essayResultMap">
+        SELECT *
+        FROM t_essay
+        LEFT JOIN t_column
+        ON t_essay.column_id = t_column.column_id
+        WHERE t_essay.essay_state = 1
+		ORDER BY t_essay.column_id ASC
+        <if test="offset >= 0 and pageSize > 0 ">
+            LIMIT #{offset}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="listEssayByColumnId" resultMap="essayResultMap">
+        SELECT *
+        FROM t_essay
+        LEFT JOIN t_column
+        ON t_essay.column_id = t_column.column_id
+        WHERE t_essay.column_id = #{columnId}
+        AND t_essay.essay_state = 1
+        ORDER BY t_essay.essay_id ASC
+    </select>
+
+    <select id="listEssayByColumnIdByPage" resultMap="essayResultMap">
+        SELECT *
+        FROM t_essay
+        LEFT JOIN t_column
+        ON t_essay.column_id = t_column.column_id
+        WHERE t_essay.column_id = #{columnId}
+        AND t_essay.essay_state = 1
+        ORDER BY t_essay.essay_id ASC
+        <if test="offset >= 0 and pageSize > 0 ">
+            LIMIT #{offset}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="queryEssayById" resultMap="essayResultMap">
+        SELECT *
+        FROM t_essay
+        LEFT JOIN t_column
+        ON t_essay.column_id = t_column.column_id
+        WHERE essay_id = #{essayId}
+        AND essay_state = 1
+    </select>
+
+</mapper>

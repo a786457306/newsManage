@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nenu.newsManage.mapper.ColumnMapper">
+    <resultMap id="columnResultMap" type="Columns">
+        <id column="column_id" property="columnId"/>
+        <id column="columns_name" property="columnName"/>
+        <id column="column_state" property="columnState"/>
+    </resultMap>
+
+    <insert id="newColumn">
+        INSERT INTO t_column (columns_name, column_state)
+        VALUES (#{column.columnName}, #{column.columnState})
+    </insert>
+
+    <update id="delColumn">
+        UPDATE t_column
+        SET column_state = 0
+        WHERE column_id = #{columnId}
+    </update>
+
+    <update id="updateColumn">
+        UPDATE t_column
+        SET columns_name = #{column.columnName}, column_state = #{column.columnState}
+        WHERE column_id = #{column.columnId}
+    </update>
+
+    <select id="listColumn" resultMap="columnResultMap">
+        SELECT *
+        FROM t_column
+        WHERE column_state = 1
+    </select>
+
+    <select id="queryColumnById" resultMap="columnResultMap">
+        SELECT *
+        FROM t_column
+        WHERE column_id = #{columnId}
+        AND column_state = 1
+    </select>
+</mapper>
