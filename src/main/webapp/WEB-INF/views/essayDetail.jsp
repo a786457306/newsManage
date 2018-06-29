@@ -1,14 +1,5 @@
-<%@	page import="entity.*"%>
-<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
-<jsp:useBean id="columnDao" class = "dao.ColumnDao"/>
-<jsp:useBean id="essayDao" class = "dao.EssayDao"/>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +10,7 @@
 		<title>2015年5月软件学院发展学生党员公示-东北师范大学信息与软件工程学院</title>
 		<meta name="keywords" content="东北师范大学信息与软件工程学院">
 
-			<link media="all" href="../css/jtnr.css" type="text/css"
+			<link media="all" href="css/jtnr.css" type="text/css"
 				rel="stylesheet">
 </head>
 <body>
@@ -53,49 +44,33 @@
 					<div class="leftnav_center">
 						<div class="leftnav_center">
 							<ul id="menu">
-							<%
-								Column column = new Column();
-								ArrayList<Column> clist = columnDao.selectColumn(column);
-								if(clist != null){
-									for(int i = 0;i < clist.size();i ++){
-									column = clist.get(i);
-							%>
-								<li>
-									<a href="index.jsp?cid=<%=column.getCid() %>" indepth="true" class="all"><%=column.getCname() %></a>
-								</li>
-							<%							
-									}
-								}
-							%>
+								<c:forEach items="${columnList}" var="column">
+									<li>
+										<a href="${website}index?columnId=${column.columnId}" indepth="true"
+										   class="all">${column.columnName}</a>
+									</li>
+								</c:forEach>
 							</ul>
 
 						</div>
 					</div>
 				</div>
-				<div class="left_banner"> 
-					<img src="../img/left_banner.jpg" border="0">
+				<div class="left_banner">
+					<img src="/resources/img/left_banner.jpg" border="0">
 				</div>
 			</div>
 		
 		<div class="list_right">
 			<div class="list_top">
 				<div class="list_img"></div>
-				<%
-					int cid = 1;
-					if(request.getParameter("cid") != null){
-						cid = Integer.parseInt(request.getParameter("cid"));
-					}
-					String cname = "";
-					cname = columnDao.getColumn(cid).getCname();
-					int eid = Integer.parseInt(request.getParameter("eid"));
-					Essay essay = essayDao.getEssay(eid);
-				%>
-				<div class="list_img_h1"><%=cname %></div>
-					<div class="list_seat"><strong><a href = "login.jsp">登录</a></strong></div>
+				<div class="list_img_h1">${essay.columnName}</div>
+				<div class="list_seat"><strong><a href="${website}login">注册</a></strong></div>
+				<div class="list_seat"><strong><a href="${website}signIn">登录</a></strong></div>
 			</div>
-				<h2 align="center"><%=essay.getTitle() %></h2>
-				<%=essay.getContent() %>
+				<h2 align="center">${essay.essayName}</h2>
+				${essay.essayContent}
 		</div>
+		<div style="clear: both;"></div>
 	</div>
 	<div class="copyright">
 		<div class="copyright_box">
@@ -105,7 +80,6 @@
 			</div>
 			<div class="copyright_03">
 				<a href="#">联系我们</a> | <a href="default_001.html" indepth="true">E-mail</a>
-				<!--#endeditable-->
 			</div>
 		</div>
 	</div>

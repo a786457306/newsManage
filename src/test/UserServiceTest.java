@@ -60,8 +60,8 @@ public class UserServiceTest extends AbstractTestCase {
     @Test
     public void checkLogin() throws Exception{
         User user = new User();
-        user.setUserName("zhangzw");
-        user.setPassword("123456");
+        user.setUserName("admin");
+        user.setPassword("admin");
 //        user.setUserState(1);
         if (userService.checkLogin(user)){
             System.out.println("登录成功");

@@ -41,10 +41,11 @@
         AND user_state = 1
     </select>
 
-    <select id="countUser" resultType="int">
+    <select id="countUserName" resultType="int">
         SELECT count(1)
         FROM t_user
-        WHERE user_state = 1
+        WHERE user_name = #{userName}
+        AND user_state = 1
     </select>
 
     <select id="countUserByNameAndPassword" resultType="int">

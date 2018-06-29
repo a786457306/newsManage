@@ -54,11 +54,20 @@ public interface UserService {
     public User queryUserById(Integer userId) throws Exception;
 
     /**
-     * 检察用户是否正确登录
+     * 检查用户是否正确登录
      *
      * @param user
      * @return
      * @throws Exception
      */
     public boolean checkLogin(User user) throws Exception;
+
+    /**
+     * 检查用户名是否已经存在
+     *
+     * @param userName
+     * @return
+     * @throws Exception
+     */
+    public boolean checkUserName(String userName) throws Exception;
 }

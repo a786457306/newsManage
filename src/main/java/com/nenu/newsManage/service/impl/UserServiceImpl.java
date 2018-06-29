@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService{
             user.setUserName(user.getUserName());
             user.setPassword(user.getPassword());
             user.setUserState(user.getUserState());
+
             userMapper.newUser(user);
         }catch (Exception e){
             throw new Exception(e.getMessage());
@@ -88,6 +89,18 @@ public class UserServiceImpl implements UserService{
         }
         try {
             return (userMapper.countUserByNameAndPassword(user.getUserName(), user.getPassword())) > 0 ? true : false;
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean checkUserName(String userName) throws Exception {
+        if (userName == null){
+            return false;
+        }
+        try{
+            return userMapper.countUserName(userName) == 0 ? true : false;
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }

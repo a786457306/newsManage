@@ -23,7 +23,7 @@ public interface UserMapper {
 
     public User queryUserById(@Param("userId")Integer userId) throws Exception;
 
-    public int countUser() throws Exception;
+    public int countUserName(@Param("userName") String userName) throws Exception;
 
     public int countUserByNameAndPassword(@Param("userName") String userName,
                                           @Param("password") String password)

@@ -86,7 +86,8 @@
         <div class="list_top">
             <div class="list_img"></div>
             <div class="list_img_h1">${column.columnName}</div>
-            <div class="list_seat"><strong><a href="login.jsp">登录</a></strong></div>
+            <div class="list_seat"><strong><a href="${website}signIn">注册</a></strong></div>
+            <div class="list_seat"><strong><a href="${website}login">登录</a></strong></div>
         </div>
         <!--内容-->
         <div class="nei">
@@ -94,7 +95,7 @@
             <ul class="nei_1">
                 <c:forEach items="${essayPage.list}" var="essay">
                     <li id="line_u7_0">
-                        <a href="essayDetail.jsp?eid=${essay.essayId}"
+                        <a href="${website}essayDetail?essayId=${essay.essayId}"
                            target="_top" title="${essay.essayName}" indepth="true">${essay.essayName}</a>
                     </li>
                     <span id="section_u7_0" style="display: none;">
