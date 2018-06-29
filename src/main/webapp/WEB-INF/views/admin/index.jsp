@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
 <title>后台管理系统</title>
 <meta name="keywords" content="东北师范大学信息与软件工程学院">
-<link media="all" href="/DJGZ/css/index.css" type="text/css"
+<link media="all" href="/resources/css/index.css" type="text/css"
 	rel="stylesheet">
 </head>
 
@@ -45,15 +45,15 @@
 					<div class="leftnav_center">
 
 						<ul id="menu">
-						
-							<li><a href="/DJGZ/a/column.jsp" indepth="true"
-								class="all">栏目管理</a></li>
 
-							<li><a href="/DJGZ/a/essay.jsp" indepth="true"
-								class="all">文章管理</a></li>
+							<li><a href="/admin/listColumn" indepth="true"
+								   class="all">栏目管理</a></li>
 
-							<li><a href="/DJGZ/a/login_out.jsp" indepth="true"
-								class="all">退出登录</a></li>
+							<li><a href="/admin/listEssay" indepth="true"
+								   class="all">文章管理</a></li>
+
+							<li><a href="/admin/logout" indepth="true"
+								   class="all">退出登录</a></li>
 
 						</ul>
 
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 			<div class="left_banner">
-				<img src="/DJGZ/img/left_banner.jpg" border="0">
+				<img src="/resources/img/left_banner.jpg" border="0">
 			</div>
 		</div>
 		<div class="list_right">
@@ -73,14 +73,7 @@
 			</div>
 			<!--内容-->
 			<div class="nei" style="text-align:center;font-size:30px">
-
-				<%
-					request.setCharacterEncoding("utf-8");
-					String uname = (String)session.getAttribute("uname");
-					
-				%>
-				<%=uname %>,欢迎你！
-
+				${sessionScope.user.userName},欢迎你！
 			</div>
 		</div>
 		<div style="clear: both;"></div>

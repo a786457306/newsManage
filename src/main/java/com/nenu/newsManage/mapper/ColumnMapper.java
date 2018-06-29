@@ -22,4 +22,6 @@ public interface ColumnMapper {
     public List<Columns> listColumn() throws Exception;
 
     public Columns queryColumnById(@Param("columnId") Integer columnId) throws Exception;
+
+    public int countColumnByName(@Param("columnName") String columnName) throws Exception;
 }

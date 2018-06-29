@@ -81,4 +81,9 @@ public class ColumnServiceImpl implements ColumnsService {
             throw new Exception(e.getMessage());
         }
     }
+
+    @Override
+    public boolean checkColumn(String columnName) throws Exception {
+        return columnMapper.countColumnByName(columnName) > 0 ? true : false;
+    }
 }

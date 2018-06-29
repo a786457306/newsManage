@@ -1,15 +1,5 @@
-<%@page import="entity.Column"%>
-<%@ page language="java" import="java.util.*"
-	contentType="text/html; charset=utf-8"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-<jsp:useBean id="columnDao" class="dao.ColumnDao" />
-
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -18,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
 <title>栏目管理-栏目列表</title>
 <meta name="keywords" content="东北师范大学信息与软件工程学院">
-<link media="all" href="/DJGZ/css/jtnr.css" type="text/css"
+<link media="all" href="/resources/css/jtnr.css" type="text/css"
 	rel="stylesheet">
 </head>
 
@@ -56,15 +46,15 @@
 					<div class="leftnav_center">
 
 						<ul id="menu">
-							
-							<li><a href="/DJGZ/a/column.jsp" indepth="true"
-								class="all">栏目管理</a></li>
 
-							<li><a href="/DJGZ/a/essay.jsp" indepth="true"
-								class="all">文章管理</a></li>
+							<li><a href="/admin/listColumn" indepth="true"
+								   class="all">栏目管理</a></li>
 
-							<li><a href="/DJGZ/a/login_out.jsp" indepth="true"
-								class="all">退出登录</a></li>
+							<li><a href="/admin/listEssay" indepth="true"
+								   class="all">文章管理</a></li>
+
+							<li><a href="/admin/logout" indepth="true"
+								   class="all">退出登录</a></li>
 
 						</ul>
 
@@ -74,14 +64,14 @@
 				</div>
 			</div>
 			<div class="left_banner">
-				<img src="/DJGZ/img/left_banner.jpg" border="0">
+				<img src="/resources/img/left_banner.jpg" border="0">
 			</div>
 		</div>
 		<div class="list_right">
 			<div class="list_top">
 				<div class="list_img"></div>
 				<div class="list_img_h1">栏目管理</div>
-				<div class="list_seat"><strong><a href = "columnAdd.jsp">增加</a></strong></div>
+				<div class="list_seat"><strong><a href = "${website}/admin/newColumn">增加</a></strong></div>
 			</div>
 			<!--内容-->
 			<div class="manage_table">
@@ -89,29 +79,17 @@
 				<table border="2px">
 						<tr>
 							<td>序号</td>
-							<td>名称</td>
+							<td>栏目名称</td>
 							<td colspan="3">操作</td>
 						</tr>
-
-						<%
-							request.setCharacterEncoding("utf-8");
-							Column column = null;
-							ArrayList<Column> clist = columnDao.selectColumn(column);
-							if (clist != null) {
-								for (int i = 0; i < clist.size(); i++) {
-									column = clist.get(i);
-						%>
-
+					<c:forEach items="${columnPage.list}" var="column">
 						<tr>
-							<td><%=column.getCid()%></td>
-							<td><%=column.getCname()%></td>
-							<td><a href="<%=path%>/a/columnUpdate.jsp?cid=<%=column.getCid()%>">编辑</a></td>
-							<td><a href="<%=path%>/servlet/DeleteColumnServlet?cid=<%=column.getCid()%>">删除</a></td>
+							<td>${column.columnId}</td>
+							<td>${column.columnName}</td>
+							<td><a href="${website}/admin/updateColumn?columnId=${column.columnId}">编辑</a></td>
+							<td><a href="${website}/admin/delColumn?columnId=${column.columnId}">删除</a></td>
 						</tr>
-						<%
-								}
-							}
-						%>
+					</c:forEach>
 					</table>
 				
 				</form>

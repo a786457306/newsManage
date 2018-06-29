@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
     <title>党建工作-东北师范大学信息与软件工程学院</title>
     <meta name="keywords" content="东北师范大学信息与软件工程学院">
-    <link media="all" href="css/index.css" type="text/css" rel="stylesheet">
+    <link media="all" href="/resources/css/index.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>

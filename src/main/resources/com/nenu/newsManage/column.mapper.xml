@@ -38,4 +38,11 @@
         WHERE column_id = #{columnId}
         AND column_state = 1
     </select>
+
+    <select id="countColumnByName" resultType="int">
+        SELECT count(1)
+        FROM t_column
+        where columns_name = #{columnName}
+        AND column_state = 1
+    </select>
 </mapper>

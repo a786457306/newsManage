@@ -53,4 +53,13 @@ public interface ColumnsService {
      * @throws Exception
      */
     public Columns queryColumnById(Integer columnId) throws Exception;
+
+    /**
+     * 检查栏目是否已经存在
+     *
+     * @param columnName
+     * @return
+     * @throws Exception
+     */
+    public boolean checkColumn(String columnName) throws Exception;
 }

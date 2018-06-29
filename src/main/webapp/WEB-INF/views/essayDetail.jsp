@@ -10,7 +10,7 @@
 		<title>2015年5月软件学院发展学生党员公示-东北师范大学信息与软件工程学院</title>
 		<meta name="keywords" content="东北师范大学信息与软件工程学院">
 
-			<link media="all" href="css/jtnr.css" type="text/css"
+			<link media="all" href="/resources/css/jtnr.css" type="text/css"
 				rel="stylesheet">
 </head>
 <body>
