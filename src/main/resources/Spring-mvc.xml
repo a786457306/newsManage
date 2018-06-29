@@ -13,6 +13,7 @@
     http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
     <!-- 扫描文件（自动将service层注入） -->
     <!--自动扫描注解的Controller-->
+    <mvc:annotation-driven/>
     <context:component-scan base-package="com.nenu.newsManage.controller"/>
 
     <!--避免IE在Ajax请求时，返回JSON出现下载-->
@@ -33,6 +34,12 @@
         <!--最大上传大小(字节)-->
         <property name="maxUploadSize" value="1048576" />
     </bean>
+
+    <!-- 静态资源映射 -->
+    <mvc:default-servlet-handler />
+    <mvc:resources mapping="/css/**" location="/resources/css/"></mvc:resources>
+    <mvc:resources mapping="/img/**" location="/resources/img/"></mvc:resources>
+
 
     <!--<mvc:interceptors>-->
         <!--<mvc:interceptor>-->

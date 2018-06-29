@@ -47,21 +47,13 @@ public interface EssayService {
     /**
      * 查询所有文章
      *
-     * @return
-     * @throws Exception
-     */
-    public List<Essay> listEssay() throws Exception;
-
-    /**
-     * 分页查询所有文章
-     *
      * @param pageNo
      * @param pageSize
      * @return
      * @throws Exception
      */
-    public List<Essay> listEssayByPage(int pageNo,
-                                       int pageSize) throws Exception;
+    public List<Essay> listEssay(int pageNo,
+                                 int pageSize) throws Exception;
 
     /**
      * 根据文章id查询文章
@@ -75,22 +67,13 @@ public interface EssayService {
     /**
      * 根据栏目id查询栏目下所有文章
      *
-     * @param columnId
-     * @return
-     * @throws Exception
-     */
-    public List<Essay> listEssayByColumnId(Integer columnId) throws Exception;
-
-    /**
-     * 根据栏目id查询栏目下所有文章并分页
-     *
      * @param pageNo
      * @param pageSize
      * @param columnId
      * @return
      * @throws Exception
      */
-    public List<Essay> listEssayByColumnIdByPage(int pageNo,
-                                                 int pageSize,
-                                                 Integer columnId) throws Exception;
+    public List<Essay> listEssayByColumnId(int pageNo,
+                                           int pageSize,
+                                           Integer columnId) throws Exception;
 }

@@ -21,8 +21,6 @@ import java.util.List;
 @Service("EssayService")
 public class EssayServiceImpl implements EssayService{
 
-    private static int pageSize = 10;
-
     @Autowired
     private EssayMapper essayMapper;
 
@@ -84,20 +82,8 @@ public class EssayServiceImpl implements EssayService{
     }
 
     @Override
-    public List<Essay> listEssay() throws Exception {
-        List<Essay> essayList = essayMapper.listEssay();
-        return essayList;
-    }
-
-    @Override
-    public List<Essay> listEssayByPage(int pageNo,
-                                       int pageSize) throws Exception {
-        pageNo = pageNo <= 0 ? 0 : pageNo - 1;
-        int offset = pageNo * pageSize;
-        if (offset < 0){
-            return null;
-        }
-        List<Essay> essayList = essayMapper.listEssayByPage(offset, pageSize);
+    public List<Essay> listEssay(int pageNo, int pageSize) throws Exception {
+        List<Essay> essayList = essayMapper.listEssay(pageNo, pageSize);
         return essayList;
     }
 
@@ -112,21 +98,10 @@ public class EssayServiceImpl implements EssayService{
     }
 
     @Override
-    public List<Essay> listEssayByColumnId(Integer columnId) throws Exception {
-        List<Essay> essayList = essayMapper.listEssayByColumnId(columnId);
-        return essayList;
-    }
-
-    @Override
-    public List<Essay> listEssayByColumnIdByPage(int pageNo,
-                                                 int pageSize,
-                                                 Integer columnId) throws Exception {
-        pageNo = pageNo <= 0 ? 0 : pageNo - 1;
-        int offset = pageNo * pageSize;
-        if (offset < 0){
-            return null;
-        }
-        List<Essay> essayList = essayMapper.listEssayByColumnIdByPage(offset, pageSize, columnId);
+    public List<Essay> listEssayByColumnId(int pageNo,
+                                           int pageSize,
+                                           Integer columnId) throws Exception {
+        List<Essay> essayList = essayMapper.listEssayByColumnId(pageNo, pageSize, columnId);
         return essayList;
     }
 }

@@ -45,18 +45,6 @@
 		ORDER BY t_essay.column_id ASC
     </select>
 
-    <select id="listEssayByPage" resultMap="essayResultMap">
-        SELECT *
-        FROM t_essay
-        LEFT JOIN t_column
-        ON t_essay.column_id = t_column.column_id
-        WHERE t_essay.essay_state = 1
-		ORDER BY t_essay.column_id ASC
-        <if test="offset >= 0 and pageSize > 0 ">
-            LIMIT #{offset}, #{pageSize}
-        </if>
-    </select>
-
     <select id="listEssayByColumnId" resultMap="essayResultMap">
         SELECT *
         FROM t_essay
@@ -65,19 +53,6 @@
         WHERE t_essay.column_id = #{columnId}
         AND t_essay.essay_state = 1
         ORDER BY t_essay.essay_id ASC
-    </select>
-
-    <select id="listEssayByColumnIdByPage" resultMap="essayResultMap">
-        SELECT *
-        FROM t_essay
-        LEFT JOIN t_column
-        ON t_essay.column_id = t_column.column_id
-        WHERE t_essay.column_id = #{columnId}
-        AND t_essay.essay_state = 1
-        ORDER BY t_essay.essay_id ASC
-        <if test="offset >= 0 and pageSize > 0 ">
-            LIMIT #{offset}, #{pageSize}
-        </if>
     </select>
 
     <select id="queryEssayById" resultMap="essayResultMap">

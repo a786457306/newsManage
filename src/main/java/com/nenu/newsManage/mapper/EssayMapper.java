@@ -21,16 +21,12 @@ public interface EssayMapper {
 
     public void updateEssay(@Param("essay") Essay essay) throws Exception;
 
-    public List<Essay> listEssay() throws Exception;
+    public List<Essay> listEssay(@Param("pageNo") int pageNo,
+                                 @Param("pageSize") int pageSize) throws Exception;
 
-    public List<Essay> listEssayByPage(@Param("offset") int offset,
-                                       @Param("pageSize") int pageSize) throws Exception;
-
-    public List<Essay> listEssayByColumnId(@Param("columnId") Integer columnId) throws Exception;
-
-    public List<Essay> listEssayByColumnIdByPage(@Param("offset") int offset,
-                                                 @Param("pageSize") int pageSize,
-                                                 @Param("columnId") Integer columnId) throws Exception;
+    public List<Essay> listEssayByColumnId(@Param("pageNo") int pageNo,
+                                           @Param("pageSize") int pageSize,
+                                           @Param("columnId") Integer columnId) throws Exception;
 
     public Essay queryEssayById(@Param("essayId") Integer essayId) throws Exception;
 }

@@ -55,15 +55,8 @@ public class EssayServiceTest extends AbstractTestCase {
 
     @Test
     public void listEssay() throws Exception {
-        List<Essay> essayList = essayService.listEssay();
-        for (Essay essay : essayList){
-            System.out.println(essay.getEssayName() + " " + essay.getColumnName());
-        }
-    }
 
-    @Test
-    public void listEssayByPage() throws Exception {
-        List<Essay> essayList = essayService.listEssayByPage(1,5);
+        List<Essay> essayList = essayService.listEssay(1, 5);
         for (Essay essay : essayList){
             System.out.println(essay.getEssayName() + " " + essay.getColumnName());
         }
@@ -77,15 +70,7 @@ public class EssayServiceTest extends AbstractTestCase {
 
     @Test
     public void listEssayByColumnId() throws Exception {
-        List<Essay> essayList = essayService.listEssayByColumnId(2);
-        for (Essay essay : essayList){
-            System.out.println(essay.getEssayName() + " " + essay.getColumnName());
-        }
-    }
-
-    @Test
-    public void listEssayByColumnIdByPage() throws Exception {
-        List<Essay> essayList = essayService.listEssayByColumnIdByPage(1,5,2);
+        List<Essay> essayList = essayService.listEssayByColumnId(2, 5, 2);
         for (Essay essay : essayList){
             System.out.println(essay.getEssayName() + " " + essay.getColumnName());
         }

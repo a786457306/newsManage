@@ -1,13 +1,15 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
-<title>后台管理系统</title>
+<title>栏目管理-增加栏目</title>
 <meta name="keywords" content="东北师范大学信息与软件工程学院">
-<link media="all" href="/DJGZ/css/index.css" type="text/css"
+<link media="all" href="../css/jtnr.css" type="text/css"
 	rel="stylesheet">
 </head>
 
@@ -36,50 +38,43 @@
 	<!--list_nav结束-->
 	<div class="list_banner"></div>
 	<div class="list_warp">
-		<div class="list_left">
-			<h1>后台管理系统</h1>
-			<div class="list_left_list">
-				<!--左侧导航开始 -->
-				<div class="leftnav_center">
-					<!--左侧导航开始 -->
+			<div class="list_left">
+				<h1>信息科学与技术学院</h1>
+				<div class="list_left_list">
 					<div class="leftnav_center">
+						<div class="leftnav_center">
+							<ul id="menu">
+								<c:forEach items="${columnList}" var="column">
+									<li>
+										<a href="index.jsp?cid=${column.columnId}" indepth="true" class="all">${column.columnName}</a>
+									</li>
+								</c:forEach>
+							</ul>
 
-						<ul id="menu">
-						
-							<li><a href="/DJGZ/a/column.jsp" indepth="true"
-								class="all">栏目管理</a></li>
-
-							<li><a href="/DJGZ/a/essay.jsp" indepth="true"
-								class="all">文章管理</a></li>
-
-							<li><a href="/DJGZ/a/login_out.jsp" indepth="true"
-								class="all">退出登录</a></li>
-
-						</ul>
-
+						</div>
 					</div>
-
-					<!--左侧导航结束 -->
+				</div>
+				<div class="left_banner"> 
+					<img src="/resources/img/left_banner.jpg" border="0">
 				</div>
 			</div>
-			<div class="left_banner">
-				<img src="/DJGZ/img/left_banner.jpg" border="0">
-			</div>
-		</div>
 		<div class="list_right">
 			<div class="list_top">
 				<div class="list_img"></div>
-				<div class="list_img_h1">首页</div>
+				<div class="list_img_h1">登录</div>
 			</div>
 			<!--内容-->
 			<div class="nei" style="text-align:center;font-size:30px">
+				<form action="/DJGZ/servlet/LoginServlet" method="post">
+					<h2 align="center">个人信息</h2>
+					<div
+						style="text-align: center; line-height: 25px; font-size: 12px;">
 
-				<%
-					request.setCharacterEncoding("utf-8");
-					String uname = (String)session.getAttribute("uname");
-					
-				%>
-				<%=uname %>,欢迎你！
+						<input type="text" name="userName" placeholder="用户名" required><br><br>
+						<input type="password" name="password" placeholder="密码" required><br><br>
+						<input type="submit" value="提交"><br><br>
+					</div>
+				</form>
 
 			</div>
 		</div>
