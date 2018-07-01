@@ -53,7 +53,7 @@
 							<li><a href="/admin/listEssay" indepth="true"
 								   class="all">文章管理</a></li>
 
-							<li><a href="/admin/logout" indepth="true"
+							<li><a href="/logout" indepth="true"
 								   class="all">退出登录</a></li>
 
 						</ul>
@@ -95,6 +95,23 @@
 				</form>
 
 			</div>
+		</div>
+		<div id="pageNum">
+			<c:if test="${columnPage != null && columnPage.getTotal() > 0 }">
+				<nav style="text-align: center">
+					<ul class="pagination pagination-lg">
+						<li><a>共 ${columnPage.total } 条记录</a></li>
+						<li><a>当前第 ${columnPage.pageNum} 页</a></li>
+						<c:if test="${columnPage.pageNum!= 1 }">
+							<li><a href="${website}/admin/listColumn?pageNo=${columnPage.pageNum - 1}">上一页</a></li>
+						</c:if>
+						<c:if test="${columnPage.pageNum < columnPage.pages }">
+							<li><a href="${website}/admin/listColumn?pageNo=${columnPage.pageNum + 1}">下一页</a></li>
+						</c:if>
+						<li><a>共 ${columnPage.pages} 页</a></li>
+					</ul>
+				</nav>
+			</c:if>
 		</div>
 		<div style="clear: both;"></div>
 	</div>

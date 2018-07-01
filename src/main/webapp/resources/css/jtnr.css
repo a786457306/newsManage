@@ -221,6 +221,7 @@ a:hover {
 
 .list_right {
 	width: 730px;
+	height: 590px;
 	float: right;
 	line-height: 26px;
 }
@@ -258,6 +259,22 @@ a:hover {
 	line-height: 36px;
 	text-align: right;
 	font-size: 14px;
+}
+
+#pageNum {
+	width: 730px;
+	float: right;
+	line-height: 26px;
+}
+
+#pageNum ul{
+	width: 730px;
+	float: left;
+}
+
+#pageNum li{
+	display: inline-block;
+	margin-left: 5px;
 }
 
 .list_right p {

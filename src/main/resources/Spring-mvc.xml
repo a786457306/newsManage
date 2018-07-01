@@ -39,6 +39,7 @@
     <mvc:default-servlet-handler />
     <mvc:resources mapping="/css/**" location="/resources/css/"></mvc:resources>
     <mvc:resources mapping="/img/**" location="/resources/img/"></mvc:resources>
+    <mvc:resources mapping="/ueditor/**" location="/resources/ueditor/"></mvc:resources>
 
 
     <!--<mvc:interceptors>-->

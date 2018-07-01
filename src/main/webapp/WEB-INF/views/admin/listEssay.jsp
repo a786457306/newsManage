@@ -1,25 +1,14 @@
-<%@page import="entity.Column"%>
-<%@ page import="entity.Essay" %>
-<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-<jsp:useBean id="columnDao" class="dao.ColumnDao" />
-<jsp:useBean id="essayDao" class="dao.EssayDao"/>
-
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
-<title>栏目管理-栏目列表</title>
+<title>文章管理-文章列表</title>
 <meta name="keywords" content="东北师范大学信息与软件工程学院">
-<link media="all" href="/DJGZ/css/jtnr.css" type="text/css"
+<link media="all" href="/resources/css/jtnr.css" type="text/css"
 	rel="stylesheet">
 </head>
 
@@ -57,15 +46,16 @@
 					<div class="leftnav_center">
 
 						<ul id="menu">
-						
-							<li><a href="/DJGZ/a/column.jsp" indepth="true"
-								class="all">栏目管理</a></li>
 
-							<li><a href="/DJGZ/a/essay.jsp" indepth="true"
-								class="all">文章管理</a></li>
+							<li><a href="/admin/listColumn" indepth="true"
+								   class="all">栏目管理</a></li>
 
-							<li><a href="/DJGZ/a/login_out.jsp" indepth="true"
-								class="all">退出登录</a></li>
+							<li><a href="/admin/listEssay" indepth="true"
+								   class="all">文章管理</a></li>
+
+							<li><a href="/logout" indepth="true"
+								   class="all">退出登录</a></li>
+
 						</ul>
 
 					</div>
@@ -74,14 +64,14 @@
 				</div>
 			</div>
 			<div class="left_banner">
-				<img src="/DJGZ/img/left_banner.jpg" border="0">
+				<img src="/resources/img/left_banner.jpg" border="0">
 			</div>
 		</div>
 		<div class="list_right">
 			<div class="list_top">
 				<div class="list_img"></div>
 				<div class="list_img_h1">文章管理</div>
-				<div class="list_seat"><strong><a href = "/DJGZ/a/essayAdd.jsp">增加</a></strong></div>
+				<div class="list_seat"><strong><a href = "${website}/admin/newEssay">增加</a></strong></div>
 			</div>
 			<!--内容-->
 			<div class="manage_table">
@@ -90,36 +80,44 @@
 						<tr>
 							<td>文章序号</td>
 							<td>栏目序号</td>
+							<td>栏目名称</td>
 							<td>文章标题</td>
 							<td>文章内容</td>
 							<td colspan="3">操作</td>
 						</tr>
-
-						<%
-							request.setCharacterEncoding("utf-8");
-							ArrayList<Essay> elist = essayDao.selectEssay(); 
-							if(elist != null){
-								for(int i = 0;i < elist.size();i++){
-									Essay essay  = elist.get(i);
-						%>
-
+					<c:forEach items="${essayPage.list}" var="essay">
 						<tr>
-							<td><%=essay.getEid()%></td>
-							<td><%=essay.getCid()%></td>
-							<td><%=essay.getTitle() %></td>
-							<td><%=essay.getContent() %></td>
-							<td><a href="<%=path%>/a/essayUpdate.jsp?eid=<%=essay.getEid() %>">编辑</a></td>
-							<td><a href="<%=path%>/servlet/EssayDeleteServlet?eid=<%=essay.getEid() %>">删除</a></td>
+							<td>${essay.essayId}</td>
+							<td>${essay.columnId}</td>
+							<td>${essay.columnName}</td>
+							<td>${essay.essayName}</td>
+							<td>${essay.essayContent}</td>
+							<td><a href="${website}/admin/updateEssay?essayId=${essay.essayId}">编辑</a></td>
+							<td><a href="${website}/admin/delEssay?essayId=${essay.essayId}">删除</a></td>
 						</tr>
-						<%
-								}
-							}
-						%>
+					</c:forEach>
 					</table>
 				
 				</form>
 
 			</div>
+		</div>
+		<div id="pageNum">
+			<c:if test="${essayPage != null && essayPage.getTotal() > 0 }">
+				<nav style="text-align: center">
+					<ul class="pagination pagination-lg">
+						<li><a>共 ${essayPage.total } 条记录</a></li>
+						<li><a>当前第 ${essayPage.pageNum} 页</a></li>
+						<c:if test="${essayPage.pageNum!= 1 }">
+							<li><a href="${website}/admin/listEssay?pageNo=${essayPage.pageNum - 1}">上一页</a></li>
+						</c:if>
+						<c:if test="${essayPage.pageNum < essayPage.pages }">
+							<li><a href="${website}/admin/listEssay?pageNo=${essayPage.pageNum + 1}">下一页</a></li>
+						</c:if>
+						<li><a>共 ${essayPage.pages} 页</a></li>
+					</ul>
+				</nav>
+			</c:if>
 		</div>
 		<div style="clear: both;"></div>
 	</div>

@@ -1,36 +1,26 @@
-<%@page import="entity.Column"%>
-<%@ page language="java" import="java.util.*"
-	contentType="text/html; charset=utf-8"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-	+ request.getServerName() + ":" + request.getServerPort()
-	+ path + "/";
-%>
-<jsp:useBean id="columnDao" class="dao.ColumnDao" />
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
-<title>栏目管理-增加栏目</title>
+<title>文章管理-增加文章</title>
 <meta name="keywords" content="东北师范大学信息与软件工程学院">
-<link media="all" href="/DJGZ/css/jtnr.css" type="text/css"
+<link media="all" href="/resources/css/jtnr.css" type="text/css"
 	rel="stylesheet">
 <!--编辑器基本配置-->
 
 <script type="text/javascript" charset="utf-8"
-	src="/DJGZ/ueditor/ueditor.config.js">
+	src="/resources/ueditor/ueditor.config.js">
 	
 </script>
 
 <!--编辑器完整代码-->
 
 <script type="text/javascript" charset="utf-8"
-	src="/DJGZ/ueditor/ueditor.all.js">
+	src="/resources/ueditor/ueditor.all.js">
 	
 </script>
 </head>
@@ -70,12 +60,15 @@
 
 						<ul id="menu">
 
-							<li><a href="/DJGZ/a/column.jsp" indepth="true" class="all">栏目管理</a></li>
+							<li><a href="/admin/listColumn" indepth="true"
+								   class="all">栏目管理</a></li>
 
-							<li><a href="/DJGZ/a/essay.jsp" indepth="true" class="all">文章管理</a></li>
+							<li><a href="/admin/listEssay" indepth="true"
+								   class="all">文章管理</a></li>
 
-							<li><a href="/DJGZ/a/login_out.jsp" indepth="true"
-								class="all">退出登录</a></li>
+							<li><a href="/logout" indepth="true"
+								   class="all">退出登录</a></li>
+
 						</ul>
 
 					</div>
@@ -84,7 +77,7 @@
 				</div>
 			</div>
 			<div class="left_banner">
-				<img src="/DJGZ/img/left_banner.jpg" border="0">
+				<img src="/resources/img/left_banner.jpg" border="0">
 			</div>
 		</div>
 		<div class="list_right">
@@ -95,33 +88,28 @@
 			<!--内容-->
 			<div class="nei" style="text-align:center;font-size:30px">
 
-				<form action="<%=path%>/servlet/AddEssayServlet" method="post">
+				<form action="${website}/admin/newEssay" method="post">
 
 					<h2 align="center">增加文章</h2>
 					<div
 						style="text-align: center; line-height: 25px; font-size: 12px;">
 						<div class="essay-title">
-							文章题目：<input type="text" name="title" required>
+							<input type="hidden" name="essayId" value="${essay.essayId}">
+							文章题目：<input type="text" name="essayName" required>
 						</div>
 						<div class="essay-type">
-							文章类型： <select name="cid">
-								<%
-									Column column = new Column();
-															ArrayList<Column> clist = columnDao.selectColumn(column);
-															for(Column column1:clist){
-								%>
-								<option value="<%=column1.getCid()%>"><%=column1.getCname()%></option>
-								<%
-									}
-								%>
-							</select><br />
+							文章类型： <select name="columnId">
+								<c:forEach items="${columnList}" var="column">
+									<option value="${column.columnId}">${column.columnName}</option>
+								</c:forEach>
+							</select><br/>
 						</div>
 						<div class="essay-content">文章内容：</div>
 
 						<div>
-							<script id="editor" name="content" type="text/plain"></script>
+							<script id="editor" name="essayContent" type="text/plain"></script>
 						</div>
-
+						<input type="hidden" name="essayState" value="1">
 						<script type="text/javascript">
 							//实例化编辑器
 
@@ -135,6 +123,8 @@
 
 								initialFrameHeight : 250
 
+							}, 'container',{
+                                enterTag:'' ,
 							});
 						</script>
 						<input type="submit" value="确定">

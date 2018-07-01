@@ -42,7 +42,7 @@
         LEFT JOIN t_column
         ON t_essay.column_id = t_column.column_id
         WHERE t_essay.essay_state = 1
-		ORDER BY t_essay.column_id ASC
+		ORDER BY t_essay.column_id, t_essay.essay_id
     </select>
 
     <select id="listEssayByColumnId" resultMap="essayResultMap">

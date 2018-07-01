@@ -34,7 +34,7 @@ public class AdminController {
     private EssayService essayService;
 
     /**
-     * 显示用户列表
+     * 显示栏目列表
      *
      * @param pageNo
      * @param pageSize
@@ -107,6 +107,7 @@ public class AdminController {
                             @RequestParam(required = false, defaultValue = "10") int pageSize,
                             Model model) throws Exception {
         columnService.delColumn(columnId);
+        essayService.delEssayByColumnId(columnId);
         PageHelper.startPage(pageNo, pageSize);
         List<Columns> columnList = columnService.listColumn();
         PageInfo<Columns> page = new PageInfo<>(columnList);
@@ -160,32 +161,128 @@ public class AdminController {
     }
 
     /**
-     * 退出登录，注销用户session
+     * 去文章列表页
      *
-     * @param session
+     * @param pageNo
+     * @param pageSize
+     * @param model
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/logout")
-    public String logout(HttpSession session,
-                         @RequestParam(required = false, defaultValue = "1") int pageNo,
-                         @RequestParam(required = false, defaultValue = "10") int pageSize,
-                         @RequestParam(required = false, defaultValue = "1") int columnId,
-                         Model model) throws Exception {
-        //开始分页，分页参数是页码和每页记录数
+    @RequestMapping(value = "/listEssay", method = RequestMethod.GET)
+    public String toEssayList(@RequestParam(required = false, defaultValue = "1") int pageNo,
+                              @RequestParam(required = false, defaultValue = "10") int pageSize,
+                              Model model) throws Exception {
         PageHelper.startPage(pageNo, pageSize);
-        List<Essay> essayList = essayService.listEssayByColumnId(pageNo,
-                                                                 pageSize,
-                                                                 columnId);
-        //对象列表传入页面
-        PageInfo<Essay> page = new PageInfo<Essay>(essayList);
+        List<Essay> essayList = essayService.listEssay(pageNo, pageSize);
+        PageInfo<Essay> page = new PageInfo<>(essayList);
 
-        List<Columns> columnList = columnService.listColumn();
-        Columns column = columnService.queryColumnById(columnId);
         model.addAttribute("essayPage", page);
+        return "admin/listEssay";
+    }
+
+    /**
+     * 去新增文章页
+     *
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/newEssay")
+    public String toNewEssay(Model model) throws Exception {
+        List<Columns> columnList = columnService.listColumn();
         model.addAttribute("columnList", columnList);
-        model.addAttribute("column", column);
-        session.invalidate();
-        return "index";
+        return "admin/newEssay";
+    }
+
+    /**
+     * 新增文章
+     *
+     * @param essay
+     * @param pageNo
+     * @param pageSize
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/newEssay", method = RequestMethod.POST)
+    public String newEssay(Essay essay,
+                           @RequestParam(required = false, defaultValue = "1") int pageNo,
+                           @RequestParam(required = false, defaultValue = "10") int pageSize,
+                           Model model)throws Exception {
+        essayService.newEssay(essay);
+        PageHelper.startPage(pageNo, pageSize);
+        List<Essay> essayList = essayService.listEssay(pageNo, pageSize);
+        PageInfo<Essay> page = new PageInfo<>(essayList);
+
+        model.addAttribute("essayPage", page);
+        return "admin/listEssay";
+    }
+
+    /**
+     * 删除文章
+     *
+     * @param essayId
+     * @param pageNo
+     * @param pageSize
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "delEssay")
+    public String delEssay(int essayId,
+                           @RequestParam(required = false, defaultValue = "1") int pageNo,
+                           @RequestParam(required = false, defaultValue = "10") int pageSize,
+                           Model model)throws Exception {
+
+        essayService.delEssay(essayId);
+        PageHelper.startPage(pageNo, pageSize);
+        List<Essay> essayList = essayService.listEssay(pageNo, pageSize);
+        PageInfo<Essay> page = new PageInfo<>(essayList);
+
+        model.addAttribute("essayPage", page);
+        return "admin/listEssay";
+    }
+
+    /**
+     * 去更新文章页
+     *
+     * @param essayId
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/updateEssay", method = RequestMethod.GET)
+    public String toUpdateEssay(int essayId,
+                                Model model)throws Exception {
+        List<Columns> columnList = columnService.listColumn();
+        Essay essay = essayService.queryEssayById(essayId);
+        model.addAttribute("columnList", columnList);
+        model.addAttribute("essay", essay);
+        return "admin/updateEssay";
+    }
+
+    /**
+     * 更新文章
+     *
+     * @param essay
+     * @param pageNo
+     * @param pageSize
+     * @param model
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/updateEssay", method = RequestMethod.POST)
+    public String updateEssay(Essay essay,
+                              @RequestParam(required = false, defaultValue = "1") int pageNo,
+                              @RequestParam(required = false, defaultValue = "10") int pageSize,
+                              Model model)throws Exception {
+        essayService.updateEssay(essay);
+        PageHelper.startPage(pageNo, pageSize);
+        List<Essay> essayList = essayService.listEssay(pageNo, pageSize);
+        PageInfo<Essay> page = new PageInfo<>(essayList);
+
+        model.addAttribute("essayPage", page);
+        return "admin/listEssay";
     }
 }

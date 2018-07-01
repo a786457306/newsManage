@@ -52,7 +52,7 @@
 							<li><a href="/admin/listEssay" indepth="true"
 								   class="all">文章管理</a></li>
 
-							<li><a href="/admin/logout" indepth="true"
+							<li><a href="/logout" indepth="true"
 								   class="all">退出登录</a></li>
 
 						</ul>

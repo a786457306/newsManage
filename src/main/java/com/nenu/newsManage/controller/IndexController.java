@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -177,6 +178,36 @@ public class IndexController {
             model.addAttribute("loginError", "用户名或密码错误！");
             return "login";
         }
+    }
+
+    /**
+     * 退出登录，注销用户session
+     *
+     * @param session
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "logout")
+    public String logout(HttpSession session,
+                         @RequestParam(required = false, defaultValue = "1") int pageNo,
+                         @RequestParam(required = false, defaultValue = "10") int pageSize,
+                         @RequestParam(required = false, defaultValue = "1") int columnId,
+                         Model model) throws Exception {
+        //开始分页，分页参数是页码和每页记录数
+        PageHelper.startPage(pageNo, pageSize);
+        List<Essay> essayList = essayService.listEssayByColumnId(pageNo,
+                pageSize,
+                columnId);
+        //对象列表传入页面
+        PageInfo<Essay> page = new PageInfo<Essay>(essayList);
+
+        List<Columns> columnList = columnService.listColumn();
+        Columns column = columnService.queryColumnById(columnId);
+        model.addAttribute("essayPage", page);
+        model.addAttribute("columnList", columnList);
+        model.addAttribute("column", column);
+        session.invalidate();
+        return "index";
     }
 
 }
