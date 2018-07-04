@@ -170,6 +170,8 @@ public class IndexController {
     public String login(User user,
                         Model model,
                         HttpServletRequest request) throws Exception {
+        List<Columns> columnList = columnService.listColumn();
+        model.addAttribute("columnList", columnList);
         //登录成功
         if (userService.checkLogin(user)) {
             request.getSession().setAttribute("user", user);
