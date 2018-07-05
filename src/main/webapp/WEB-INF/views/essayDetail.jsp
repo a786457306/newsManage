@@ -64,8 +64,8 @@
 			<div class="list_top">
 				<div class="list_img"></div>
 				<div class="list_img_h1">${essay.columnName}</div>
-				<div class="list_seat"><strong><a href="${website}login">注册</a></strong></div>
-				<div class="list_seat"><strong><a href="${website}signIn">登录</a></strong></div>
+				<div class="list_seat"><strong><a href="${website}signIn">注册</a></strong></div>
+				<div class="list_seat"><strong><a href="${website}login">登录</a></strong></div>
 			</div>
 				<h2 align="center">${essay.essayName}</h2>
 				${essay.essayContent}

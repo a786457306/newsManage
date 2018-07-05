@@ -66,7 +66,7 @@
 						<li><a href="/admin/listEssay" indepth="true"
 							   class="all">文章管理</a></li>
 
-						<li><a href="${website}logout" indepth="true"
+						<li><a href="/logout" indepth="true"
 							   class="all">退出登录</a></li>
 
 					</ul>
@@ -113,9 +113,9 @@
 						<div class="essay-content">文章内容：</div>
 
 						<div>
-							<textarea name="essayContent" id="editor" weight="660px" height="250px">
+							<script id="editor" name="essayContent" type="text/plain">
 								${essay.essayContent}
-							</textarea>
+							</script>
 							<input type="hidden" name="essayState" value="${essay.essayState}">
 						</div>
 
