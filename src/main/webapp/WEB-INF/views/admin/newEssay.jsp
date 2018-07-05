@@ -14,14 +14,14 @@
 
 <script type="text/javascript" charset="utf-8"
 	src="/resources/ueditor/ueditor.config.js">
-	
+
 </script>
 
 <!--编辑器完整代码-->
 
 <script type="text/javascript" charset="utf-8"
 	src="/resources/ueditor/ueditor.all.js">
-	
+
 </script>
 </head>
 
